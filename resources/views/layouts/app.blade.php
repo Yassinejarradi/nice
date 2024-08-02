@@ -8,7 +8,8 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="soengsouy">
         <meta name="robots" content="noindex, nofollow">
-        <title>Login HRMS</title>
+
+        <title> welcome</title>
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ URL::to('assets/img/favicon.png') }}">
 		<!-- Bootstrap CSS -->

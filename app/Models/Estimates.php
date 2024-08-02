@@ -5,28 +5,74 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Estimates extends Model
 {
     use HasFactory;
-
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'estimates';
 
-    // Declare the fields that are mass assignable
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'estimate_number',
         'type_demande',
         'estimate_date',
         'expiry_date',
-        'other_information',
-        'user_id'  // Add user_id to the fillable attributes
+        'status',
+        'managed_by',   
+        'managed_at',
+        'statut_v',
+        'validators',
+        'validation_orther',
+        'user_id',
     ];
 
     /**
-     * User relationship: An estimate belongs to a user
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'estimate_date' => 'date',
+        'expiry_date' => 'date',
+    ];
+
+    /**
+     * Get the user that owns the estimate.
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the items for the estimate.
+     */
+    public function items()
+    {
+        return $this->hasMany(EstimatesAdd::class);
+    }
+
+    /**
+     * Get the details for the estimate.
+     */
+    public function details()
+    {
+        return $this->hasMany(EstimateDetail::class);
+    }
+    public function actions()
+    {
+        return $this->hasMany(EstimateAction::class, 'estimate_number', 'estimate_number');
     }
 }
